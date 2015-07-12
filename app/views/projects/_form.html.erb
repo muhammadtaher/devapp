@@ -1,0 +1,54 @@
+<%
+ def check(user)
+    @project.users.include? user
+  end
+%>
+<%= form_for(@project) do |f| %>
+  <% if @project.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@project.errors.count, "error") %> prohibited this project from being saved:</h2>
+
+      <ul>
+      <% @project.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %><br>
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :description %><br>
+    <%= f.text_area :description %>
+  </div>
+  
+   <div class="field">
+    <%= f.label "Participants:" %><br/>
+ <table class ="table-striped container">
+  <tr> 
+      <th> </th>
+      <th>First name</th>
+      <th>Last name </th>
+      <th>Email</th>
+    </tr>
+  <% User.all.each do |user| %>
+  <% if user.id != current_user.id %>
+    <tr> 
+      <td><div class = "checkbox"><%= check_box_tag "user_id[]", user.id, check(user)%></div> </td>
+      <td><%= user.first_name %></td>
+      <td><%= user.last_name %> </td>
+      <td><%= user.email %></td>
+    </tr>
+    <% end %>
+<% end %>
+</table> 
+
+  </div>
+
+ <div class="actions">
+    <%= f.submit %>
+  </div>
+  <% end %>

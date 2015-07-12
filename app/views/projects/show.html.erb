@@ -1,0 +1,49 @@
+
+
+<h1><%= @project.name %></h1>
+<p><%= @project.description %></p>
+
+<%if current_user.id == @project.creator_id%><h2><%= link_to "Edit project", edit_project_path(@project) %> </h2> <%end%>
+<h2> Members </h2>
+<table class = "table">
+	<tr>
+		<th>First name</th>
+		<th>Last name</th>
+		<th>Email</th>
+	</tr>
+<% @project.users.each do |user| %>
+	<tr>
+		<td><%= user.first_name %></td>
+		<td><%= user.last_name %> </td>
+		<td><%= user.email %> </td>
+	</tr>
+<% end %>
+</table>
+<div class="row">    
+ <div class = "col-md-3" style ="background-color: #FF6699;"> <strong>Open</strong></div>
+ <div class = "col-md-3" style ="background-color: #CCCC33;"> <strong>In Process</strong></div>
+ <div class = "col-md-3" style ="background-color: #3399FF;"> <strong>To be Verified</strong></div>
+ <div class = "col-md-3" style ="background-color: #00FF33;"> <strong>Completed</strong></div>
+</div>
+
+<!-- <p>
+  <strong>Name:</strong>
+  <%= @project.name %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @project.description %>
+</p>
+<p>
+  <strong>Participants:</strong>
+  <ul>
+  <% @project.users.each do |user| %>
+<li>  <%= user.email %> </li>
+  <% end %>
+</ul>
+</p>
+
+<%= link_to 'Edit', edit_project_path(@project) %> |
+<%= link_to 'Back', '/users/profile' %>
+ -->

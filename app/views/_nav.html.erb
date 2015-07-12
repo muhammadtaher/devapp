@@ -1,0 +1,28 @@
+<br>
+<div class="container">
+
+	<ul class = "nav nav-pills">
+		
+		<li class="<%= 'active' if params[:controller] == 'home' && params[:action] == 'index' %>"> <%=link_to "Home", controller: "/home", action: "index"%> </li>
+
+
+		<% if current_user %>
+
+		<li role="presentation" class="<%='active'if params[:controller] == 'home' && params[:action] == 'log_out' %>" > <%=link_to "Log out", destroy_user_session_path, :method => 'delete' %></li>
+				<li role="presentation" class="<%='active'if params[:controller] == 'users' && params[:action] == 'profile' %>" > 
+
+
+<%=link_to current_user.first_name, controller: "/users", action: "profile"%>
+
+
+
+				</li>
+		<% else %>
+		<li role="presentation" class="<%='active' if params[:controller] == 'devise/registrations' && params[:action] == 'new' %>" > <%=link_to "Sign Up", controller: "devise/registrations", action: "new"%> </li>
+
+		<li role="presentation" class="<%='active'if params[:controller] == 'devise/sessions' && params[:action] == 'new' %>" > <%=link_to "Log in",  new_user_session_path%></li>
+		<% end %>
+
+	</ul>	
+</div>
+<hr>

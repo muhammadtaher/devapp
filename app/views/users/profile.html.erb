@@ -1,0 +1,45 @@
+<% if user_signed_in? %>
+<p id="notice"><%= notice %></p>
+<p>
+	<div class="span6 pull-right" style="text-align:right">
+		<div class="container">
+			<%= image_tag(current_user.avatar.url(:thumb) , height: '100', width: '100', :class => "img-thumbnail") %>
+
+		</div> 
+	</div>	
+</p>
+<p>
+	<strong>First name:</strong>
+	<%= current_user.first_name %>
+</p>
+
+<p>
+	<strong>Last name:</strong>
+	<%= current_user.last_name %>
+</p>
+
+<p>
+	<strong>Email:</strong>
+	<%= current_user.email %>
+</p>
+<% if current_user.admin %>
+<%=link_to "Show All users", controller: "/users", action: "index"%>
+
+<% end %>
+<strong>Projects:</strong>
+	<% current_user.projects.each do |project| %>
+	<li>
+		<%= project.name%>
+		<%= link_to 'show', project %> 
+		<% if project.creator_id == current_user.id %>
+		|
+        <%= link_to 'Edit', edit_project_path(project) %>|
+        <%= link_to 'Destroy', project, method: :delete, data: { confirm: 'Are you sure?' } %>
+        <% end %>
+	</li>
+	<% end%>
+	<li><%= link_to 'Add new project', '/projects/new'%> </li>
+</ul>
+
+<%else controller.redirect_to "/home/not_found"%>
+<% end %>
