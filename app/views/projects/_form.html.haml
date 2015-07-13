@@ -1,0 +1,37 @@
+= form_for(@project) do |f|
+  - if @project.errors.any?
+    #error_explanation
+      %h2
+        = pluralize(@project.errors.count, "error")
+        prohibited this project from being saved:
+      %ul
+        - @project.errors.full_messages.each do |message|
+          %li= message
+  .field
+    = f.label :name
+    %br/
+    = f.text_field :name
+  .field
+    = f.label :description
+    %br/
+    = f.text_area :description
+  .field
+    = f.label "Participants:"
+    %br/
+    %table.table-striped.container
+      %tr
+        %th
+        %th First name
+        %th Last name
+        %th Email
+      - User.all.each do |user|
+        - if user.id != current_user.id
+          %tr
+            %td
+              .checkbox= check_box_tag "user_id[]", user.id, @project.users.include?(user)
+            %td= user.first_name
+            %td
+              = user.last_name
+            %td= user.email
+  %br/
+  = f.submit

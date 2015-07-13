@@ -1,0 +1,29 @@
+- if user_signed_in?
+  %p#notice= notice
+  %p
+  .span6.pull-right{:style => "text-align:right"}
+    .container
+      = image_tag(current_user.avatar.url(:thumb) , height: '100', width: '100', :class => "img-thumbnail")
+  %p
+    %strong First name:
+    = current_user.first_name
+  %p
+    %strong Last name:
+    = current_user.last_name
+  %p
+    %strong Email:
+    = current_user.email
+  - if current_user.admin
+    = link_to "Show All users", controller: "/users", action: "index"
+  %strong Projects:
+  - current_user.projects.each do |project|
+    %li
+      = project.name
+      = link_to 'show', project
+      - if project.creator_id == current_user.id
+        |
+        \#{link_to 'Edit', edit_project_path(project)}|
+        \#{link_to 'Destroy', project, method: :delete, data: { confirm: 'Are you sure?' }}
+  %li
+    = link_to 'Add new project', '/projects/new'
+- else controller.redirect_to "/home/not_found"

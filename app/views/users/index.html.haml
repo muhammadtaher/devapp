@@ -1,0 +1,9 @@
+- if user_signed_in?
+  - if current_user.admin
+    %ul
+      - @users.each do |user|
+        %li= user.first_name << " "<< user.last_name
+    - else  controller.redirect_to "/home/profile"
+    - end
+    - else controller.redirect_to "/home/profile"
+    - end

@@ -11,7 +11,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150711113901) do
+ActiveRecord::Schema.define(version: 20150713132301) do
+
+  create_table "desc_files", force: :cascade do |t|
+    t.integer  "user_story_id"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+    t.string   "file_file_name"
+    t.string   "file_content_type"
+    t.integer  "file_file_size"
+    t.datetime "file_updated_at"
+  end
 
   create_table "projects", force: :cascade do |t|
     t.string   "name"
@@ -30,6 +40,36 @@ ActiveRecord::Schema.define(version: 20150711113901) do
 
   add_index "projects_users", ["project_id"], name: "index_projects_users_on_project_id"
   add_index "projects_users", ["user_id"], name: "index_projects_users_on_user_id"
+
+  create_table "tasks", force: :cascade do |t|
+    t.string   "description"
+    t.boolean  "done"
+    t.integer  "user_story_id"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+  end
+
+  create_table "tasks_users", id: false, force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "task_id"
+  end
+
+  create_table "user_stories", force: :cascade do |t|
+    t.integer  "project_id"
+    t.string   "name"
+    t.text     "description"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.integer  "state"
+  end
+
+  create_table "user_story_xes", force: :cascade do |t|
+    t.integer  "project_id"
+    t.string   "name"
+    t.text     "description"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "",    null: false

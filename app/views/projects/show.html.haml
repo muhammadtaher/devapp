@@ -1,0 +1,86 @@
+%h1= @project.name
+= link_to "Add user story", "/projects/"<<@project.id.to_s<<"/add_user_story"
+%p= @project.description
+- if current_user.id == @project.creator_id
+  %h2
+    = link_to "Edit project", edit_project_path(@project)
+%h2 Members
+%table.table
+  %tr
+    %th First name
+    %th Last name
+    %th Email
+  - @project.users.each do |user|
+    %tr
+      %td= user.first_name
+      %td
+        = user.last_name
+      %td
+        = user.email
+User stories:
+%br/
+- @project.user_stories.each do |user|
+  %tr
+    %td= user.name
+.row{:style =>"display: block;"}
+  .col-md-3{:style => "background-color: #FF6699;"}
+    %strong Open
+  .col-md-3{:style => "background-color: #CCCC33;"}
+    %strong In Process
+  .col-md-3{:style => "background-color: #3399FF;"}
+    %strong To be Verified
+  .col-md-3{:style => "background-color: #00FF33;"}
+    %strong Completed
+OPEN
+%ol{:style => "background-color:#FF6699; position: relative; float: left; width: 278px;"}
+  - @project.user_stories.each do |story|
+    - if story.state == 0 || story.state.nil?
+      %li
+        =story.name
+        %br/
+        =link_to 'show', story
+IN PROCESS
+%ol{:style => "background-color:#CCCC33; position: relative; float:left;width: 292px; "}
+  - @project.user_stories.each do |story|
+    - if story.state == 1
+      %li
+        =story.name
+        =link_to 'show', story
+TO BE VERIFIED
+%ol{:style => "background-color:#3399FF;position: relative; float: left; width: 292px;"}
+  - @project.user_stories.each do |story|
+    - if story.state == 2
+      %li
+        =story.name
+        =link_to 'show', story
+COMPLETED
+%ol{:style => "background-color:#00FF33;position: relative; float: left; width: 278px;"}
+  - @project.user_stories.each do |story|
+    - if story.state == 3
+      %li
+        =story.name
+        =link_to 'show', story
+
+
+
+
+/
+  <p>
+  <strong>Name:</strong>
+  <haml_loud> @project.name </haml_loud>
+  </p>
+  
+  <p>
+  <strong>Description:</strong>
+  <haml_loud> @project.description </haml_loud>
+  </p>
+  <p>
+  <strong>Participants:</strong>
+  <ul>
+  <haml_silent>   @project.users.each do |user|
+  </haml_silent><haml_block><li>  <haml_loud> user.email </haml_loud> </li>
+  </haml_block></ul>
+  </p>
+  
+  <haml_loud> link_to &#39;Edit&#39;, edit_project_path(@project) </haml_loud> |
+  <haml_loud> link_to &#39;Back&#39;, &#39;/users/profile&#39; </haml_loud>

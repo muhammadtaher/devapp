@@ -1,0 +1,5 @@
+= form_tag ("/user_stories/#{params[:id]}/save_task") do 
+	= label_tag (:description)
+	= text_field_tag (:description)
+	= submit_tag ("Save")
+

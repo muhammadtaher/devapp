@@ -1,0 +1,16 @@
+%br/
+.container
+  %ul.nav.nav-pills
+    %li{:class => "#{'active' if params[:controller] == 'home' &&  params[:action] == 'index'}"}
+      = link_to "Home", controller: "/home", action: "index"
+    - if current_user
+      %li{:class => "#{'active'if params[:controller] == 'home'  && params[:action] == 'log_out'}", :role => "presentation"}
+        = link_to "Log out", destroy_user_session_path, :method => 'delete'
+      %li{:class => "#{'active'if params[:controller] == 'users'  && params[:action] == 'profile'}", :role => "presentation"}
+        = link_to current_user.first_name, controller: "/users", action: "profile"
+    - else
+      %li{:class => "#{'active' if params[:controller] == 'devise/registrations'  && params[:action] == 'new'}", :role => "presentation"}
+        = link_to "Sign Up", controller: "devise/registrations", action: "new"
+      %li{:class => "#{'active'if params[:controller] == 'devise/sessions'  && params[:action] == 'new'}", :role => "presentation"}
+        = link_to "Log in",  new_user_session_path
+%hr/

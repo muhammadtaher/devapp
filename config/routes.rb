@@ -1,5 +1,11 @@
 Rails.application.routes.draw do
+  resources :user_stories
+  post '/projects/update_user_story', tp: "projects#update_user_story"
+  get '/projects/:id/add_user_story' ,to: "projects#add_user_story"
+  get '/user_stories/:id/add_task' ,to: "user_stories#add_task"
+  post '/user_stories/:id/save_task' ,to: "user_stories#save_task"
   post '/projects/add_user' ,to: "projects#add_user"
+  post '/projects/add_file', to: "projects#add_file"
   get '/users/test' ,to: "users#test"
   resources :projects
   get '/users/profile' ,to: "users#profile"

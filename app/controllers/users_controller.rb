@@ -6,8 +6,6 @@ class UsersController < ApplicationController
 
   def profile
   end
-  def test
-  	render profile
-  end
+  
 
 end
