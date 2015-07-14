@@ -3,6 +3,6 @@ class Project < ActiveRecord::Base
 	belongs_to :user
 	has_many :user_stories, :dependent => :destroy
 	accepts_nested_attributes_for :user_stories
-	  validates_presence_of :name
-
+	validates_presence_of :name
+  	acts_as_commentable
 end

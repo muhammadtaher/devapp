@@ -1,0 +1,8 @@
+- @projects.each do |project|
+  %li
+    = project.name
+    = link_to 'show', project
+    - if project.creator_id == current_user.id
+      \#{link_to 'Edit', edit_project_path(project)}|
+      \#{link_to 'Destroy', project, method: :delete, data: { confirm: 'Are you sure?' }}
+= will_paginate @projects

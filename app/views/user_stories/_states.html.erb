@@ -1,8 +1,12 @@
  
- <%= f.label :state %><br />
-      <%= f.label :state, "Open", :value => "0" %>
-      <%= f.radio_button :state, 0, :checked => @user_story.open?%>
-      <%= f.label :state, "In process", :value => "1"  %>
-      <%= f.radio_button :state, 1 , :checked => @user_story.in_process?%>
-      <%= f.label :state, "To be verified", :value => "2"  %>
-      <%= f.radio_button :state, 2, :checked => @user_story.to_be_verified? %>
+<%= f.label :state %><br/>
+<%= f.label :state, "Open", :value => "0" %>
+<%= f.radio_button :state, 0, :checked => @user_story.open?%>
+<%= f.label :state, "In process", :value => "1"  %>
+<%= f.radio_button :state, 1 , :checked => @user_story.in_process?%>
+<%= f.label :state, "To be verified", :value => "2"  %>
+<%= f.radio_button :state, 2, :checked => @user_story.to_be_verified? %>
+<% if current_user.id == @user_story.project.creator_id %>
+<%= f.label :state, "completed", :value => "3"  %>
+<%= f.radio_button :state, 3, :checked => @user_story.completed? %>
+<% end %>

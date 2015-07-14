@@ -4,7 +4,10 @@ class ProjectsController < ApplicationController
   # GET /projects
   # GET /projects.json
   def index
-    @projects = Project.all
+    @search = Project.search(params[:q])
+    result = @search.result
+    @projects = result.paginate(:page => params[:page], :per_page => 4)
+    redirect_to '/users/profile', :result => result, :search => true
   end
   def add_user_story
     @user_story = UserStory.new
@@ -31,10 +34,6 @@ class ProjectsController < ApplicationController
   # GET /projects/new
   def new
     @project = Project.new
-    story = @project.user_stories.build
-    story.desc_files.build 
-    story.tasks.build 
-    story.index = 1
   end
 
   # GET /projects/1/edit

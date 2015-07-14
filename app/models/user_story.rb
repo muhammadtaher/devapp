@@ -1,7 +1,7 @@
 class UserStory < ActiveRecord::Base
 	belongs_to :project
 	has_many :tasks
-	has_many :user_stories
+	has_many :desc_files
 	validates_presence_of :name
 	def open?
 		state == 0 || state.nil?
@@ -12,7 +12,7 @@ class UserStory < ActiveRecord::Base
 	def to_be_verified?
 		state == 2
 	end
-	def completd?
+	def completed?
 		state == 3
 	end
 end

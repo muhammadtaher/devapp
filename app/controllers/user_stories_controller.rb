@@ -1,17 +1,24 @@
 class UserStoriesController < ApplicationController
   before_action :set_user_story, only: [:show, :edit, :update, :destroy]
-
   # GET /user_stories
   # GET /user_stories.json
   def index
     @user_stories = UserStory.all
   end
-
+  def get_file
+    @user_story = UserStory.find(params[:id])
+    send_file '/assets/data/'<<DescFile.find(params[:file_id]).file.original_filename, :type=>"image/*", :x_sendfile=>true
+    redirect_to @user_story
+  end
   # GET /user_stories/1
   # GET /user_stories/1.json
   def show
   end
   def update_tasks
+    @user_story.tasks.each do |task|
+      task.done = false
+      task.save
+    end
     if(params[:tasks_done])
       Task.find(params[:tasks_done]).each do |task|
         task.done = true;
@@ -22,12 +29,22 @@ class UserStoriesController < ApplicationController
   def add_task
     @task = Task.new
   end
+  def add_file
+    @desc_file = DescFile.new
+  end
   def save_task
     @user_story = UserStory.find(params[:id])
     @task = Task.new
     @task.done = false
     @task.description = params[:description]
     @user_story.tasks<<@task
+    redirect_to @user_story
+  end
+  def save_file
+    @user_story = UserStory.find(params[:id])
+    @desc_file = DescFile.new
+    @desc_file.file = params[:file]
+    @user_story.desc_files<<@desc_file
     redirect_to @user_story
   end
 
