@@ -15,7 +15,14 @@ class ProjectsController < ApplicationController
   def update_user_story
     
   end
-
+  def add_comment
+    comment = Comment.create
+    comment.title = params[:title]
+    comment.comment = params[:comment]
+    @project = Project.find(params[:id])
+    @project.comments << comment
+    redirect_to @project
+  end
   # GET /projects/1
   # GET /projects/1.json
   def show

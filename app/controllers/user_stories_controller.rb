@@ -10,6 +10,14 @@ class UserStoriesController < ApplicationController
     send_file '/assets/data/'<<DescFile.find(params[:file_id]).file.original_filename, :type=>"image/*", :x_sendfile=>true
     redirect_to @user_story
   end
+  def add_comment
+    @user_story = UserStory.find(params[:id])
+    comment = Comment.create
+    comment.title = params[:title]
+    comment.comment = params[:comment]
+    @user_story.comments<<comment
+    redirect_to UserStory.find(@user_story)
+  end
   # GET /user_stories/1
   # GET /user_stories/1.json
   def show

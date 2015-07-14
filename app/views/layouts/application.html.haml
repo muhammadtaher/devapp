@@ -7,7 +7,7 @@
     = javascript_include_tag :defaults, :cache => true
     = csrf_meta_tags
   %body
-    .container
+    .container{:style => "padding-bottom: 3cm;"}
       = render '/nav'
       - if notice
         %p.notice= notice

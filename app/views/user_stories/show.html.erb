@@ -1,4 +1,3 @@
-
 <p>
   <h2><strong><%= @user_story.name %></strong></h2>
 </p>
@@ -38,4 +37,5 @@
    <%= submit_tag "Update User story", remote: true %>
       <%end%>
 <%end%>
+<%= render '/projects/comments', :commentable => @user_story, :path => "/user_stories/#{@user_story.id}/add_comment"%>
 <%= link_to 'Back', "/projects/#{@user_story.project_id}" %>

@@ -20,7 +20,7 @@
   = link_to "Add user story", "/projects/"<<@project.id.to_s<<"/add_user_story"
   %br/
 %br/
-User stories:
+%h2 User stories:
 %br/
 %div{:style => "background-color: #FF6699; position: relative; float: left; width: 278px;"}
   %strong Open
@@ -54,11 +54,9 @@ User stories:
     - if story.state == 3
       %li
         = story.name
-        = link_to 'show', story
-
-
-
-
+        = link_to 'show', story,  {:style=>"color:#FFFFFF;"}
+%br/
+= render 'comments' ,:commentable => @project, :path => "/projects/#{@project.id}/add_comment"
 /
   <p>
   <strong>Name:</strong>

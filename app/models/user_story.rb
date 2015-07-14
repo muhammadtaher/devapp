@@ -3,6 +3,7 @@ class UserStory < ActiveRecord::Base
 	has_many :tasks
 	has_many :desc_files
 	validates_presence_of :name
+	acts_as_commentable
 	def open?
 		state == 0 || state.nil?
 	end

@@ -7,7 +7,9 @@ Rails.application.routes.draw do
   get '/user_stories/:id/get_file/:file_id' ,to: "user_stories#get_file"
   post '/user_stories/:id/save_task' ,to: "user_stories#save_task"
   post '/user_stories/:id/save_file' ,to: "user_stories#save_file"
+  post '/user_stories/:id/add_comment' ,to: "user_stories#add_comment"
   post '/projects/add_user' ,to: "projects#add_user"
+  post '/projects/:id/add_comment' ,to: "projects#add_comment"
   post '/projects/add_file', to: "projects#add_file"
   get '/users/test' ,to: "users#test"
   resources :projects
