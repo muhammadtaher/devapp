@@ -7,7 +7,8 @@ class UsersController < ApplicationController
   def profile
   	@search = Project.search(params[:q]);
   	result = @search.result
-		@projects = Project.find(result.pluck(:id)).paginate(:page => params[:page], :per_page => 4)
+  	result = result.find(current_user.projects)
+	@projects = Project.find(result).paginate(:page => params[:page], :per_page => 4)
 	end
   
 

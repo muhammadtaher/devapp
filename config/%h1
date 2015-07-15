@@ -1,0 +1,20 @@
+%h1 
+  = @user_story.name
+  %p
+    = @user_story.description
+  = form_tag '/user_stories/update', remote: true do
+    %ol
+      - @user_story.tasks.each do |task|
+        %li
+          = check_box_tag "tasks_done[]", task.id, task.done
+          = task.description
+      %li
+        = link_to "Add task", "/user_stories/#{@user_story.id.to_s}/add_task"
+
+    %ul
+      -@user_story.files.each do |file|
+        %li
+          = file.file.original_filename
+          = link_to "Download", file.file.url(:original, false)
+      %li 
+        = link_to "Add file", "/user_stories/#{@user_story.id.to_s}/add_file"

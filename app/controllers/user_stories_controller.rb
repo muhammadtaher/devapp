@@ -1,15 +1,21 @@
 class UserStoriesController < ApplicationController
-  before_action :set_user_story, only: [:show, :edit, :update, :destroy]
+  before_action :set_user_story, only: [:update_state, :show, :edit, :update, :destroy, :set_completed]
   # GET /user_stories
   # GET /user_stories.json
   def index
     @user_stories = UserStory.all
   end
+
+  def set_completed
+  end
+
+
   def get_file
     @user_story = UserStory.find(params[:id])
     send_file '/assets/data/'<<DescFile.find(params[:file_id]).file.original_filename, :type=>"image/*", :x_sendfile=>true
     redirect_to @user_story
   end
+
   def add_comment
     @user_story = UserStory.find(params[:id])
     comment = Comment.create
@@ -26,6 +32,7 @@ class UserStoriesController < ApplicationController
   # GET /user_stories/1.json
   def show
   end
+
   def update_tasks
     @user_story.tasks.each do |task|
       task.done = false
@@ -38,9 +45,19 @@ class UserStoriesController < ApplicationController
       end
     end
   end
+  def update_state 
+    @user_story.state = params[:state]
+    @user_story.save
+     respond_to do |format|
+        format.html { redirect_to @user_story, notice: 'User story was successfully created.' }
+        format.js
+      end
+
+  end
   def add_task
     @task = Task.new
   end
+
   def add_file
     @desc_file = DescFile.new
   end
@@ -52,6 +69,7 @@ class UserStoriesController < ApplicationController
     @user_story.tasks<<@task
     redirect_to @user_story
   end
+
   def save_file
     @user_story = UserStory.find(params[:id])
     @desc_file = DescFile.new
@@ -94,6 +112,7 @@ class UserStoriesController < ApplicationController
     respond_to do |format|
       if @user_story.update(user_story_params)
         format.html { redirect_to @user_story, notice: 'User story was successfully updated.' }
+        format.js
         format.json { render :show, status: :ok, location: @user_story }
       else
         format.html { render :edit }

@@ -6,11 +6,11 @@
   <strong>Description:</strong>
   <%= @user_story.description %>
 </p>
-<%= form_for(@user_story) do |f| %>
+<%= form_for @user_story,:url => { :action => :update_state } , method: :post, remote: true do |f| %>
   <div class="field">
-      <div id="states">
-        <%= render "states", :f => f %>  
-      </div>   
+      <div class="states">
+        <%= render "states", :f => f %> 
+      </div> 
       <br/>
       <%= f.label 'Tasks:'%>
       <ol>
@@ -34,7 +34,7 @@
         </li>
       <%end%>
       <%= link_to 'Add File', "/user_stories/#{@user_story.id.to_s}/add_file"%><br/>
-   <%= submit_tag "Update User story", remote: true %>
+   <%= f.submit "Update User story"%>
       <%end%>
 <%end%>
 <%= render '/home/comments', :commentable => @user_story, path: add_user_stoires_comments_path %>

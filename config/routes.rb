@@ -1,22 +1,28 @@
 Rails.application.routes.draw do
-  resources :user_stories
-  post '/projects/update_user_story', tp: "projects#update_user_story"
-  get '/projects/:id/add_user_story' ,to: "projects#add_user_story"
-  get '/user_stories/:id/add_task' ,to: "user_stories#add_task"
-  get '/user_stories/:id/add_file' ,to: "user_stories#add_file"
-  get '/user_stories/:id/get_file/:file_id' ,to: "user_stories#get_file"
-  post '/user_stories/:id/save_task' ,to: "user_stories#save_task"
-  post '/user_stories/:id/save_file' ,to: "user_stories#save_file"
-  post '/user_stories/:id/add_comment' ,to: "user_stories#add_comment", as: :add_user_stoires_comments
-  post '/projects/add_user' ,to: "projects#add_user"
-  post '/projects/:id/add_comment' ,to: "projects#add_comment", as: :add_project_comments
-  post '/projects/add_file', to: "projects#add_file"
-  get '/users/test' ,to: "users#test"
-  resources :projects
-  get '/users/profile' ,to: "users#profile"
   get '/users', to: "users#index"
-  root to: 'home#index'
-  devise_for :users
+    root to: 'home#index'
+devise_for :users
+    authenticate :user do
+    resources :user_stories, except: :index
+    post '/projects/update_user_story', tp: "projects#update_user_story"
+    get '/projects/:id/add_user_story', to: "projects#add_user_story"
+    get '/user_stories/:id/add_task', to: "user_stories#add_task"
+    get '/user_stories/:id/add_file', to: "user_stories#add_file"
+    get '/user_stories/:id/get_file/:file_id', to: "user_stories#get_file"
+    post '/user_stories/:id/save_task', to: "user_stories#save_task"
+    post '/user_stories/:id/save_file', to: "user_stories#save_file"
+    post '/user_stories/:id/add_comment', to: "user_stories#add_comment", as: :add_user_stoires_comments
+    post '/user_stories/:id/update_state', to: "user_stories#update_state", as: :update_state
+    post '/projects/add_user', to: "projects#add_user"
+    post '/projects/:id/add_comment', to: "projects#add_comment", as: :add_project_comments
+    post '/projects/add_file', to: "projects#add_file"
+    get '/users/test', to: "users#test"
+    resources :projects, except: :index
+    get '/users/profile', to: "users#profile"
+  end
+  
+  
+
   
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

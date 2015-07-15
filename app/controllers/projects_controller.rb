@@ -9,18 +9,22 @@ class ProjectsController < ApplicationController
     @projects = result.paginate(:page => params[:page], :per_page => 4)
     redirect_to '/users/profile', :result => result, :search => true
   end
+
   def add_user_story
     @user_story = UserStory.new
   end
+
   def update_user_story
 
   end
+
   def add_comment
     comment = Comment.create
     comment.title = params[:title]
     comment.comment = params[:comment]
     @project = Project.find(params[:id])
     @project.comments << comment
+
     respond_to do |format|
       format.html { redirect_to @project}
       format.js 
@@ -29,9 +33,6 @@ class ProjectsController < ApplicationController
   # GET /projects/1
   # GET /projects/1.json
   def show
-    if(!(@project.users.include? current_user || @project.creator_id == current_user.id))
-      redirect_to '/home/not_found'
-    end
   end
   def add_file
     @project.user_stories.first.desc_files.build
@@ -48,8 +49,8 @@ class ProjectsController < ApplicationController
 
   # GET /projects/1/edit
   def edit
-    if(@project.creator_id != current_user.id)
-      redirect_to '/home/not_found'
+    if !can? :update, @project
+      redirect_to @project, notice: 'You cannot edit project.'
     end
   end
 
@@ -86,6 +87,7 @@ class ProjectsController < ApplicationController
     respond_to do |format|
       if @project.update(project_params)
         @project.users = []
+        @project.users << User.find(params[:user_id])
         @project.users << current_user
 
         format.html { redirect_to @project, notice: 'Project was successfully updated.' }
