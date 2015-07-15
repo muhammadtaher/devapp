@@ -7,9 +7,9 @@ Rails.application.routes.draw do
   get '/user_stories/:id/get_file/:file_id' ,to: "user_stories#get_file"
   post '/user_stories/:id/save_task' ,to: "user_stories#save_task"
   post '/user_stories/:id/save_file' ,to: "user_stories#save_file"
-  post '/user_stories/:id/add_comment' ,to: "user_stories#add_comment"
+  post '/user_stories/:id/add_comment' ,to: "user_stories#add_comment", as: :add_user_stoires_comments
   post '/projects/add_user' ,to: "projects#add_user"
-  post '/projects/:id/add_comment' ,to: "projects#add_comment"
+  post '/projects/:id/add_comment' ,to: "projects#add_comment", as: :add_project_comments
   post '/projects/add_file', to: "projects#add_file"
   get '/users/test' ,to: "users#test"
   resources :projects
@@ -17,7 +17,7 @@ Rails.application.routes.draw do
   get '/users', to: "users#index"
   root to: 'home#index'
   devise_for :users
-  get "*path" , to: "home#not_found"
+  
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

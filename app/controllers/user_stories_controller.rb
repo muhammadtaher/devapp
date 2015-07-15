@@ -15,8 +15,12 @@ class UserStoriesController < ApplicationController
     comment = Comment.create
     comment.title = params[:title]
     comment.comment = params[:comment]
-    @user_story.comments<<comment
-    redirect_to UserStory.find(@user_story)
+    @user_story.comments << comment    
+    respond_to do |format|
+      format.html { redirect_to @user_story}
+      format.js 
+    end
+    
   end
   # GET /user_stories/1
   # GET /user_stories/1.json

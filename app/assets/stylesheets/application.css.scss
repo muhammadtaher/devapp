@@ -1,2 +1,45 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
+.open {
+	background-color:#FF6699;
+	position: relative;
+	float: left;
+	width: 270px;
+	margin-right: 10px;
+	h6{
+
+	}
+}
+.in_process{
+	background-color:#CCCC33;
+	position: relative;
+	float: left;
+	width: 270px;
+	margin-right: 10px;
+	h6{
+		
+	}
+}
+.to_be_verified
+{
+	background-color:#3399FF;
+	position: relative; 
+	float: left;
+	width: 270px;
+	margin-right: 10px;
+	h6{
+	 	   
+	}
+}
+.completed{
+	background-color:#00FF33;
+	position: relative;
+	float: left;
+	width: 270px;
+	margin-right: 10px;
+	h6{
+	 	    
+
+	}
+
+}

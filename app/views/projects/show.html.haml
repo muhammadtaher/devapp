@@ -22,41 +22,48 @@
 %br/
 %h2 User stories:
 %br/
-%div{:style => "background-color: #FF6699; position: relative; float: left; width: 278px;"}
-  %strong Open
-%div{:style => "background-color: #CCCC33; position: relative; float:left;width: 292px;"}
-  %strong In Process
-%div{:style => "background-color: #3399FF; position: relative; float: left; width: 292px;"}
-  %strong To be Verified
-%div{:style => "background-color: #00FF33; relative; float: left; width: 240px;"}
-  %strong Completed
-%ol{:style => "background-color:#FF6699; position: relative; float: left; width: 278px;"}
-  - @project.user_stories.each do |story|
-    - if story.state == 0 || story.state.nil?
-      %li
-        = story.name
-        = link_to 'show', story
-%ol{:style => "background-color:#CCCC33; position: relative; float:left;width: 292px; "}
-  - @project.user_stories.each do |story|
-    - if story.state == 1
-      %li
-        = story.name
-        = link_to 'show', story
-%ol{:style => "background-color:#3399FF;position: relative; float: left; width: 292px;"}
-  - @project.user_stories.each do |story|
-    - if story.state == 2
-      %li
-        = story.name
-        = link_to 'show', story
-
-%ol{:style => "background-color:#00FF33;position: relative; float: left; width: 240px;"}
-  - @project.user_stories.each do |story|
-    - if story.state == 3
-      %li
-        = story.name
-        = link_to 'show', story,  {:style=>"color:#FFFFFF;"}
+%div{:class=>"open"}
+  %strong
+    %center
+      %h4 Open
+  %ol
+    - @project.user_stories.each do |story|
+      - if story.state == 0 || story.state.nil?
+        %li
+          = story.name
+          = link_to 'show', story, {:style=>"color:#FFFFFF;"}
+%div{:class=>"in_process"}
+  %strong
+    %center
+      %h4 In Process
+  %ol
+    - @project.user_stories.each do |story|
+      - if story.state == 1
+        %li
+          = story.name
+          = link_to 'show', story, {:style=>"color:#FFFFFF;"}
+%div{:class=>"to_be_verified"}
+  %strong
+    %center
+      %h4 To be Verified
+  %ol
+    - @project.user_stories.each do |story|
+      - if story.state == 2
+        %li
+          = story.name
+          = link_to 'show', story, {:style=>"color:#FFFFFF;"}
+%div{:class=>"completed"}
+  %strong
+    %center
+      %h4 Completed
+  %ol
+    - @project.user_stories.each do |story|
+      - if story.state == 3
+        %li
+          = story.name
+          = link_to 'show', story,  {:style=>"color:#FFFFFF;"}
 %br/
-= render 'comments' ,:commentable => @project, :path => "/projects/#{@project.id}/add_comment"
+= render '/home/comments', commentable: @project, path: add_project_comments_path
 /
   <p>
   <strong>Name:</strong>

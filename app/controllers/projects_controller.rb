@@ -13,7 +13,7 @@ class ProjectsController < ApplicationController
     @user_story = UserStory.new
   end
   def update_user_story
-    
+
   end
   def add_comment
     comment = Comment.create
@@ -21,7 +21,10 @@ class ProjectsController < ApplicationController
     comment.comment = params[:comment]
     @project = Project.find(params[:id])
     @project.comments << comment
-    redirect_to @project
+    respond_to do |format|
+      format.html { redirect_to @project}
+      format.js 
+    end
   end
   # GET /projects/1
   # GET /projects/1.json
@@ -122,4 +125,4 @@ class ProjectsController < ApplicationController
     def authenticate
       redirect_to("/home/not_found") if current_user.nil?
     end
-  end
+end

@@ -17,7 +17,8 @@
       Search projects
   = render 'search'
   %strong All Projects:
-  = render 'projects'
-  %li
-    = link_to 'Add new project', '/projects/new'
+  %ul
+    = render 'projects'
+    %li
+      = link_to 'Add new project', '/projects/new'
 - else controller.redirect_to "/home/not_found"
