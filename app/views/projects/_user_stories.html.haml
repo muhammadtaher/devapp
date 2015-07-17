@@ -1,0 +1,17 @@
+- @project.user_stories.each do |user_story|
+  %div{class:"container"}
+    %div{class: "modal fade" ,id: user_story.id.to_s, role: "dialog"}
+      %div{class: "modal-dialog"}
+        %div{class: "modal-content"}
+          %div{class: "modal-header"}
+            %h4{class: "modal-title"}
+              = user_story.name
+          %div{class: "modal-body"}
+            %p
+              = user_story.description
+              %div{id: "states"}
+                = render "states", us: user_story
+              = render "tasks", us: user_story
+              = link_to 'Start Editing', user_story
+          %div{class:"modal-footer"}
+            Thanks

@@ -1,0 +1,27 @@
+- if can? :see_other, @user
+  - if user_signed_in?
+    .span6.pull-right{:style => "text-align:right"}
+      .container{:style => "display: inline;"}
+        = image_tag(@user.avatar.url(:thumb) , height: '100', width: '100', :class => "img-thumbnail")
+    %p
+      %strong
+        %h3 
+          = @user.first_name
+          = @user.last_name
+    %p
+      %strong Email:
+      = @user.email
+    - if @user.admin
+      = link_to "Show All users", controller: "/users", action: "index"
+    %strong 
+      %h3 
+        Search projects
+    = render 'search'
+    %strong All Projects:
+    %ul
+      = render 'projects'
+      %li
+        = link_to 'Add new project', '/projects/new'
+  - else controller.redirect_to "/home/not_found"
+- else
+  - controller.redirect_to '/users/profile', notice: 'You cannot view this page'

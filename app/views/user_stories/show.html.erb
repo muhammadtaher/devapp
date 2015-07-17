@@ -1,41 +1,47 @@
+<% if(can? :show, @user_story)%>
 <p>
   <h2><strong><%= @user_story.name %></strong></h2>
+  <% if can? :set_completed, @user_story, @user_story.project %>
+  <%= link_to "Edit user story details",edit_user_story_path(@user_story) %>
+  <% end %>
 </p>
 
 <p>
   <strong>Description:</strong>
   <%= @user_story.description %>
 </p>
-<%= form_for @user_story,:url => { :action => :update_state } , method: :post, remote: true do |f| %>
-  <div class="field">
-      <div class="states">
-        <%= render "states", :f => f %> 
-      </div> 
-      <br/>
-      <%= f.label 'Tasks:'%>
-      <ol>
-      <%= form_tag ("/user_stories/#{params[:id]}/update_tasks") do %>
-      <% @user_story.tasks.each do |task|%>
-        <li>
-          <%= check_box_tag "tasks_done[]", task.id, task.done %>
-          <%= task.description%>
-        </li>
-      <%end%>
-
-
-    </ol>
-      <%= link_to 'Add task', "/user_stories/#{@user_story.id.to_s}/add_task"%>
-  </div>
-      <%= f.label 'Files:'%> <br/>
-       <% @user_story.desc_files.each do |file|%>
-        <li>
-          <%= file.file.original_filename%>
-          <%= link_to "Download", file.file.url(:original, false) %>
-        </li>
-      <%end%>
-      <%= link_to 'Add File', "/user_stories/#{@user_story.id.to_s}/add_file"%><br/>
-   <%= f.submit "Update User story"%>
-      <%end%>
-<%end%>
+<strong>Participants:</strong>
+	<table class="table">
+  <tr>
+    <th>First name</th>
+    <th>Last name</th>
+    <th>Email</th>
+  </tr>
+<% @user_story.users.each do |user| %>
+    <tr>
+      <td>
+        <%= user.first_name %>
+      </td>
+      <td>
+        <%= user.last_name %>
+      </td>
+      <td>
+        <%= user.email %>
+      </td>
+    </tr>
+  <% end %>
+</table>
+<div class="states">
+  
+        <%= render "states", us: @user_story, disabled: false%> 
+        
+</div>
+<div id="tasks">
+<%= render "tasks", us: @user_story, disabled: false%>
+</div>
+<%= render "files", us: @user_story %>
 <%= render '/home/comments', :commentable => @user_story, path: add_user_stoires_comments_path %>
 <%= link_to 'Back', "/projects/#{@user_story.project_id}" %>
+<%else %>  
+<% controller.redirect_to '/users/profile', notice: "You cannot view user story."<<@user_story.project.creator_id.to_s<<"   SSS  "<<current_user.id.to_s<<"   SASD   " %>
+<% end%>

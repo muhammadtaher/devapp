@@ -28,11 +28,31 @@ class Ability
     #
     # See the wiki for details:
     # https://github.com/ryanb/cancan/wiki/Defining-Abilities
+    can :manage, :all do 
+        user.admin
+    end
+    can :see_other, User do |u|
+        user.admin
+    end
     can :update, Project, :creator_id => user.id
+    can :index, User do |u|
+        user.admin == true
+    end
+    can :create, UserStory do |user_story|
+        user_story.project.creator_id == user.id
+    end
+
     can :show, Project do |project|
         user.projects.include? project
     end
     can :set_completed, UserStory, :project => {:creator_id => user.id}
+    can :update, UserStory, :project => {:creator_id => user.id}
+    can :show, UserStory do |user_story|
+        user_story.users.include?(user)
+    end
+    can :show, UserStory do |user_story|
+                (user_story.project.creator_id == user.id)   
+    end
 
   end
 end

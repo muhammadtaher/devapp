@@ -1,0 +1,15 @@
+<%= form_tag '/user_stories/'<<us.id.to_s<<'/update_state' , method: :post, remote: true do  %>
+<%= label_tag "Tasks"%>
+ <ol>
+ <% us.tasks.each do |task|%>
+        <li>
+          <%= check_box_tag "task_id[]", task.id, task.done,:onclick=> '$(this).trigger("submit.rails");', :disabled => disabled, class: "task_check" %>
+          <%= label_tag task.description, nil, class: task.get_class%>
+          <%= link_to "Edit", edit_task_path(task_id: task.id)%>|
+          <%= link_to "Delete", delete_task_path(task_id: task.id), method: :post%>
+        </li>
+<%end%>
+<li style="list-style-type: none;"> <%= link_to 'Add task', "/user_stories/#{us.id.to_s}/add_task"%>
+</li>
+</ol>
+<%end%>

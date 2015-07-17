@@ -19,5 +19,6 @@
     = label_tag :comment
     %br/
     = text_area_tag :comment
+    = hidden_field_tag :story_id, commentable.id
     %br/
     = submit_tag "Add comment"

@@ -1,5 +1,5 @@
 class UserStoriesController < ApplicationController
-  before_action :set_user_story, only: [:update_state, :show, :edit, :update, :destroy, :set_completed]
+  before_action :set_user_story, only: [:show, :edit, :update, :destroy, :set_completed]
   # GET /user_stories
   # GET /user_stories.json
   def index
@@ -9,6 +9,21 @@ class UserStoriesController < ApplicationController
   def set_completed
   end
 
+  def delete_task
+    Task.delete(params[:task_id])
+    redirect_to UserStory.find(params[:id])
+  end
+
+  def edit_task
+    @task = Task.find(params[:task_id])
+  end
+
+  def update_task
+    @task = Task.find(params[:task_id])
+    @task.description = params[:task]['description']
+    @task.save
+    redirect_to @task.user_story
+  end
 
   def get_file
     @user_story = UserStory.find(params[:id])
@@ -33,25 +48,47 @@ class UserStoriesController < ApplicationController
   def show
   end
 
-  def update_tasks
-    @user_story.tasks.each do |task|
-      task.done = false
-      task.save
-    end
-    if(params[:tasks_done])
-      Task.find(params[:tasks_done]).each do |task|
-        task.done = true;
+  
+  def update_state
+    @user_story = UserStory.find(params[:id])
+    flag = false
+    if(params[:task_id])
+      @tasks = Task.find(params[:task_id])
+      @user_story.tasks.each do |task|
+        task.done = false
+        task.save
+      end
+      @user_story.tasks.each do|task|
+        if(@tasks.include? task)
+          task.done = true;
+          task.save
+        end
+      end
+      @user_story.save
+    elsif (params[:user_story])
+      if(params[:user_story]['state'].to_i == 3 )
+        if(!can? :set_completed, @user_story, @user_story.project)
+          flag = true
+          redirect_to @user_story, notice: 'You do not have the privilage'
+        else 
+          @user_story.update(user_story_params)
+        end
+      else 
+        @user_story.update(user_story_params)
+      end
+    else
+      @user_story.tasks.each do |task|
+        task.done = false
         task.save
       end
     end
-  end
-  def update_state 
-    @user_story.state = params[:state]
-    @user_story.save
+    if !flag
      respond_to do |format|
         format.html { redirect_to @user_story, notice: 'User story was successfully created.' }
         format.js
       end
+      
+    end
 
   end
   def add_task
@@ -81,16 +118,22 @@ class UserStoriesController < ApplicationController
   # GET /user_stories/new
   def new
     @user_story = UserStory.new
+    @user_story.project = Project.find(params[:id])
   end
 
   # GET /user_stories/1/edit
   def edit
+     if(!can? :update, @user_story, @user_story.project)
+      redirect_to '/', notice: 'You cannot view this page.'
+    end
   end
 
-  # POST /user_stories
-  # POST /user_stories.json
+  # POST /user_sto(params[:id])  # POST /user_stories.json
   def create
     @user_story = UserStory.new(user_story_params)
+    if params[:user_id]
+      @user_story.users << User.find(params[:user_id])
+    end
     key, valye = params[:id].first
     @project = Project.find(key)
     @project.user_stories << @user_story
@@ -108,7 +151,10 @@ class UserStoriesController < ApplicationController
   # PATCH/PUT /user_stories/1
   # PATCH/PUT /user_stories/1.json
   def update
-    update_tasks
+    @user_story.users = []
+    if params[:user_id]
+      @user_story.users << User.find(params[:user_id])
+    end
     respond_to do |format|
       if @user_story.update(user_story_params)
         format.html { redirect_to @user_story, notice: 'User story was successfully updated.' }
@@ -139,6 +185,6 @@ class UserStoriesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_story_params
-      params.require(:user_story).permit(:project_id, :name, :description, :state)
+      params.require(:user_story).permit(:id,:project_id, :name, :description, :state, :task_id)
     end
 end

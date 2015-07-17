@@ -1,0 +1,12 @@
+Tasks
+ <ol>
+ <% us.tasks.each do |task|%>
+        <li>
+          <%= check_box_tag "task_id[]", task.id, task.done, :disabled => true %>
+          <%= label_tag task.description,nil, class: task.get_class%>
+          
+        </li>
+<li style="list-style-type: none;"> <%= link_to 'Add task', "/user_stories/#{us.id.to_s}/add_task", {method: :post }%>
+</li>
+</ol>
+<%end%>

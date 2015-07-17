@@ -1,0 +1,4 @@
+= form_for @task, url: update_task_url , method: :post do |f|
+  = f.label :description
+  = f.text_field :description
+  = f.submit

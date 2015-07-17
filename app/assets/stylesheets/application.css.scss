@@ -47,7 +47,10 @@
 .radiobutton{
 	display:none;
 }
-.active{
+.btn-group .active{
 	border-style: solid;
     border-width: 3px;
+}
+.done_task {
+    text-decoration:line-through;
 }

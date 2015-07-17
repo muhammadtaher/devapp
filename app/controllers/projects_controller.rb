@@ -11,7 +11,11 @@ class ProjectsController < ApplicationController
   end
 
   def add_user_story
-    @user_story = UserStory.new
+      @user_story = UserStory.new
+      @user_story.project = Project.find(params[:id])
+      if ! can? :create, @user_story
+        redirect_to @user_story.project, notice: 'You cannot Add user stories.'
+      end
   end
 
   def update_user_story

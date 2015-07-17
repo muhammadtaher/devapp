@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150714111150) do
+ActiveRecord::Schema.define(version: 20150716085723) do
 
   create_table "comments", force: :cascade do |t|
     t.string   "title",            limit: 50, default: ""
@@ -76,7 +76,16 @@ ActiveRecord::Schema.define(version: 20150714111150) do
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
     t.integer  "state"
+    t.integer  "task_id"
   end
+
+  create_table "user_stories_users", id: false, force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "user_story_id"
+  end
+
+  add_index "user_stories_users", ["user_id"], name: "index_user_stories_users_on_user_id"
+  add_index "user_stories_users", ["user_story_id"], name: "index_user_stories_users_on_user_story_id"
 
   create_table "user_story_xes", force: :cascade do |t|
     t.integer  "project_id"

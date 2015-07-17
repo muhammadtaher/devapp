@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   get '/users', to: "users#index"
     root to: 'home#index'
-devise_for :users
+    devise_for :users
     authenticate :user do
     resources :user_stories, except: :index
     post '/projects/update_user_story', tp: "projects#update_user_story"
@@ -17,8 +17,13 @@ devise_for :users
     post '/projects/:id/add_comment', to: "projects#add_comment", as: :add_project_comments
     post '/projects/add_file', to: "projects#add_file"
     get '/users/test', to: "users#test"
+    post "/user_stories/:id/delete_task/:task_id", to: "user_stories#delete_task"
     resources :projects, except: :index
     get '/users/profile', to: "users#profile"
+    get '/users/profile/:id', to: "users#see_other"
+    get '/user_stories/:id/tasks/:task_id/edit', to: 'user_stories#edit_task', as: :edit_task
+    post '/user_stories/:id/tasks/:task_id/delete', to: 'user_stories#delete_task', as: :delete_task
+    post '/user_stories/:id/tasks/:task_id/update_task', to: 'user_stories#update_task', as: :update_task
   end
   
   

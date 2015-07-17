@@ -1,4 +1,5 @@
-=if(can? :show, @project, current_user.projects)
+- if(can? :show, @project)
+  = render 'user_stories'
   %h1= @project.name
   %p= @project.description
   - if current_user.id == @project.creator_id
@@ -32,7 +33,7 @@
         - if story.state == 0 || story.state.nil?
           %li
             = story.name
-            = link_to 'show', story, {:style=>"color:#FFFFFF;"}
+            = link_to 'show', "#", {:style=>"color:#FFFFFF;","data-toggle" => "modal", 'data-target' => "#"<<story.id.to_s}
   %div{:class=>"in_process"}
     %strong
       %center
@@ -42,7 +43,7 @@
         - if story.state == 1
           %li
             = story.name
-            = link_to 'show', story, {:style=>"color:#FFFFFF;"}
+            = link_to 'show', "#", {:style=>"color:#FFFFFF;", "data-toggle" => "modal", 'data-target' => "#"<<story.id.to_s}
   %div{:class=>"to_be_verified"}
     %strong
       %center
@@ -52,7 +53,7 @@
         - if story.state == 2
           %li
             = story.name
-            = link_to 'show', story, {:style=>"color:#FFFFFF;"}
+            = link_to 'show', "#", {:style=>"color:#FFFFFF;","data-toggle" => "modal", 'data-target' => "#"<<story.id.to_s}
   %div{:class=>"completed"}
     %strong
       %center
@@ -62,28 +63,9 @@
         - if story.state == 3
           %li
             = story.name
-            = link_to 'show', story,  {:style=>"color:#FFFFFF;"}
+            = link_to 'show', "#",  {:style=>"color:#FFFFFF;", "data-toggle" => "modal", 'data-target' => "#"<<story.id.to_s}
   %br/
-  = render '/home/comments', commentable: @project, path: add_project_comments_path
-  /
-    <p>
-    <strong>Name:</strong>
-    <haml_loud> @project.name </haml_loud>
-    </p>
-    
-    <p>
-    <strong>Description:</strong>
-    <haml_loud> @project.description </haml_loud>
-    </p>
-    <p>
-    <strong>Participants:</strong>
-    <ul>
-    <haml_silent>   @project.users.each do |user|
-    </haml_silent><haml_block><li>  <haml_loud> user.email </haml_loud> </li>
-    </haml_block></ul>
-    </p>
-    
-    <haml_loud> link_to &#39;Edit&#39;, edit_project_path(@project) </haml_loud> |
-    <haml_loud> link_to &#39;Back&#39;, &#39;/users/profile&#39; </haml_loud>
+  %hr/
+  = render '/home/comments', commentable: @project, path:add_project_comments_path
 - else 
   - controller.redirect_to '/users/profile', notice: 'You cannot view project.'

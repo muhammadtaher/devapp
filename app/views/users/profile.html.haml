@@ -1,16 +1,16 @@
 - if user_signed_in?
   .span6.pull-right{:style => "text-align:right"}
     .container{:style => "display: inline;"}
-      = image_tag(current_user.avatar.url(:thumb) , height: '100', width: '100', :class => "img-thumbnail")
+      = image_tag(@user.avatar.url(:thumb) , height: '100', width: '100', :class => "img-thumbnail")
   %p
     %strong
       %h3 
-        = current_user.first_name
-        = current_user.last_name
+        = @user.first_name
+        = @user.last_name
   %p
     %strong Email:
-    = current_user.email
-  - if current_user.admin
+    = @user.email
+  - if @user.admin
     = link_to "Show All users", controller: "/users", action: "index"
   %strong 
     %h3 

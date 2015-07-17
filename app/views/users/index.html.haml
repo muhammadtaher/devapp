@@ -1,9 +1,10 @@
-- if user_signed_in?
-  - if current_user.admin
-    %ul
-      - @users.each do |user|
-        %li= user.first_name << " "<< user.last_name
-    - else  controller.redirect_to "/home/profile"
-    - end
-    - else controller.redirect_to "/home/profile"
-    - end
+- if can? :index, @user
+  %ul
+    - @users.each do |user|
+      %li= user.first_name << " "<< user.last_name
+      %p 
+        email:
+        = user.email
+        = link_to "See user","/users/profile/#{user.id.to_s}"
+- else
+  - controller.redirect_to '/', notice: 'You cannot go to that page.'
