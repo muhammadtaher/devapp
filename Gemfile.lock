@@ -67,6 +67,7 @@ GEM
       responders
       thread_safe (~> 0.1)
       warden (~> 1.2.3)
+    devise-i18n (0.12.1)
     erb2haml (0.1.5)
       html2haml
     erubis (2.7.0)
@@ -196,6 +197,7 @@ DEPENDENCIES
   cancan
   coffee-rails (~> 4.1.0)
   devise
+  devise-i18n
   erb2haml
   haml (~> 4.0.6)
   jbuilder (~> 2.0)

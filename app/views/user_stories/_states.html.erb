@@ -1,14 +1,13 @@
 <%= form_for us,:url => update_state_path, method: :post, remote: true do |f| %>
 <%= f.hidden_field :id %>
-<%= f.label :state %><br/>
 <div class= "btn-group">
-<%= f.label :state, "Open", :value => "0", class: us.get_class(0), style: "background-color:#FF6699; "%>
+<%= f.label :state, "Open", :value => "0", class: us.get_class(0), style: "background-color:#FF3366; "%>
 <%= f.radio_button :state, 0, :checked => us.open?,:onclick => '$(this).trigger("submit.rails");', class: "radiobutton", :disabled => disabled%>
-<%= f.label :state, "In process", :value => "1", class: us.get_class(1), style: "background-color:#CCCC33;"  %>
+<%= f.label :state, "In process", :value => "1", class: us.get_class(1), style: "background-color:#FF9933;"  %>
 <%= f.radio_button :state, 1 , :checked => us.in_process?, class: "radiobutton",:onclick => '$(this).trigger("submit.rails");', :disabled => disabled%>
 <%= f.label :state, "To be verified", :value => "2", class: us.get_class(2), style: "background-color:#3399FF;"  %>
 <%= f.radio_button :state, 2, :checked => us.to_be_verified?, class: "radiobutton",:onclick => '$(this).trigger("submit.rails");',:disabled => disabled %>
-<%= f.label :state, "completed", :value => "3", class: us.get_class(3), style: "background-color:#00FF33;", disabled: (!can? :set_completed, us, us.project)  %>
+<%= f.label :state, "completed", :value => "3", class: us.get_class(3), style: "background-color:#00CC00;", disabled: (!can? :set_completed, us, us.project)  %>
 <%= f.radio_button :state, 3, :checked => us.completed?, class: "radiobutton",:onclick => '$(this).trigger("submit.rails");', :disabled => disabled%>
 </div>
 <%end%>

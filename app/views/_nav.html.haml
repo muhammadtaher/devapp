@@ -6,11 +6,11 @@
     - if current_user
       %li{:class => "#{'active'if params[:controller] == 'home'  && params[:action] == 'log_out'}", :role => "presentation"}
         = link_to "Log out", destroy_user_session_path
-      %li{:class => "#{'active'if params[:controller] == 'users'  && params[:action] == 'profile'}", :role => "presentation"}
+      %li{:class => "#{'active'if ((params[:controller] == 'users'  && params[:action] == 'profile')|| params[:controller] == 'user_stories' || params[:controller] == 'projects')}", :role => "presentation"}
         = link_to current_user.first_name, controller: "/users", action: "profile"
     - else
       %li{:class => "#{'active' if params[:controller] == 'devise/registrations'  && params[:action] == 'new'}", :role => "presentation"}
         = link_to "Sign Up", controller: "devise/registrations", action: "new"
       %li{:class => "#{'active'if params[:controller] == 'devise/sessions'  && params[:action] == 'new'}", :role => "presentation"}
         = link_to "Log in",  new_user_session_path
-%hr/
+

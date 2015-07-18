@@ -28,6 +28,8 @@ gem 'bootstrap-sass'
 gem 'ransack'
 gem "cancan"
 gem "erb2haml", :group => :development
+gem 'devise-i18n'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 

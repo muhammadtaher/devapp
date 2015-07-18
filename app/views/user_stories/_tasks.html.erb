@@ -1,5 +1,5 @@
 <%= form_tag '/user_stories/'<<us.id.to_s<<'/update_state' , method: :post, remote: true do  %>
-<%= label_tag "Tasks"%>
+  <h2> Tasks</h2>
  <ol>
  <% us.tasks.each do |task|%>
         <li>

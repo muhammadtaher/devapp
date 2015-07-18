@@ -1,7 +1,12 @@
 - if(can? :show, @project)
   = render 'user_stories'
-  %h1= @project.name
-  %p= @project.description
+  %br/
+  %h2= @project.name
+  %p
+    %strong
+      = "Description:"
+    %br/
+    = @project.description
   - if current_user.id == @project.creator_id
     %h2
       = link_to "Edit project", edit_project_path(@project)
@@ -18,54 +23,56 @@
           = user.last_name
         %td
           = user.email
+
+  %h2 User stories:
+  .container
+    %br/
+    %div{:class=>"open"}
+      %strong
+        %center
+          %h4 Open
+      %ol
+        - @project.user_stories.each do |story|
+          - if story.state == 0 || story.state.nil?
+            %li
+              = story.name
+              = link_to 'show', "#", {:style=>"color:#FFFFFF;","data-toggle" => "modal", 'data-target' => "#"<<story.id.to_s}
+    %div{:class=>"in_process"}
+      %strong
+        %center
+          %h4 In Process
+      %ol
+        - @project.user_stories.each do |story|
+          - if story.state == 1
+            %li
+              = story.name
+              = link_to 'show', "#", {:style=>"color:#FFFFFF;", "data-toggle" => "modal", 'data-target' => "#"<<story.id.to_s}
+    %div{:class=>"to_be_verified"}
+      %strong
+        %center
+          %h4 To be Verified
+      %ol
+        - @project.user_stories.each do |story|
+          - if story.state == 2
+            %li
+              = story.name
+              = link_to 'show', "#", {:style=>"color:#FFFFFF;","data-toggle" => "modal", 'data-target' => "#"<<story.id.to_s}
+    %div{:class=>"completed"}
+      %strong
+        %center
+          %h4 Completed
+      %ol
+        - @project.user_stories.each do |story|
+          - if story.state == 3
+            %li
+              = story.name
+              = link_to 'show', "#",  {:style=>"color:#FFFFFF;", "data-toggle" => "modal", 'data-target' => "#"<<story.id.to_s}
+    %br/
+  %br/
   - if current_user.id == @project.creator_id
     = link_to "Add user story", "/projects/"<<@project.id.to_s<<"/add_user_story"
     %br/
   %br/
-  %h2 User stories:
-  %br/
-  %div{:class=>"open"}
-    %strong
-      %center
-        %h4 Open
-    %ol
-      - @project.user_stories.each do |story|
-        - if story.state == 0 || story.state.nil?
-          %li
-            = story.name
-            = link_to 'show', "#", {:style=>"color:#FFFFFF;","data-toggle" => "modal", 'data-target' => "#"<<story.id.to_s}
-  %div{:class=>"in_process"}
-    %strong
-      %center
-        %h4 In Process
-    %ol
-      - @project.user_stories.each do |story|
-        - if story.state == 1
-          %li
-            = story.name
-            = link_to 'show', "#", {:style=>"color:#FFFFFF;", "data-toggle" => "modal", 'data-target' => "#"<<story.id.to_s}
-  %div{:class=>"to_be_verified"}
-    %strong
-      %center
-        %h4 To be Verified
-    %ol
-      - @project.user_stories.each do |story|
-        - if story.state == 2
-          %li
-            = story.name
-            = link_to 'show', "#", {:style=>"color:#FFFFFF;","data-toggle" => "modal", 'data-target' => "#"<<story.id.to_s}
-  %div{:class=>"completed"}
-    %strong
-      %center
-        %h4 Completed
-    %ol
-      - @project.user_stories.each do |story|
-        - if story.state == 3
-          %li
-            = story.name
-            = link_to 'show', "#",  {:style=>"color:#FFFFFF;", "data-toggle" => "modal", 'data-target' => "#"<<story.id.to_s}
-  %br/
-  %hr/
   = render '/home/comments', commentable: @project, path:add_project_comments_path
 - else 
   - controller.redirect_to '/users/profile', notice: 'You cannot view project.'

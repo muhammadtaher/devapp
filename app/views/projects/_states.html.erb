@@ -1,16 +1,16 @@
-<%= form_for us,:url => update_state_path, method: :post do |f| %>
+<%= form_for us,:url => update_state_path, method: :post, remote: true do |f| %>
 <%= f.hidden_field :id %>
 <%= f.label :state %><br/>
 <div class= "btn-group">
-<%= f.label :state, "Open", :value => "0", class: us.get_class(0), style: "background-color:#FF6699; ", :disabled => "disabled"%>
+<%= f.label :state, "Open", :value => "0", class: us.get_class(0), style: "background-color:#FF3366; ", :disabled => "disabled"%>
 <%= f.radio_button :state, 0, :checked => us.open?,class: "radiobutton"%>
-<%= f.label :state, "In process", :value => "1", class: us.get_class(1), style: "background-color:#CCCC33;", :disabled => "disabled"  %>
+<%= f.label :state, "In process", :value => "1", class: us.get_class(1), style: "background-color:#FF9933;", :disabled => "disabled"  %>
 <%= f.radio_button :state, 1 , :checked => us.in_process?, class: "radiobutton"%>
 <%= f.label :state, "To be verified", :value => "2", class: us.get_class(2), style: "background-color:#3399FF;",:disabled => "disabled"  %>
 <%= f.radio_button :state, 2, :checked => us.to_be_verified?, class: "radiobutton"%>
 <% if current_user.id == us.project.creator_id %>
-<%= f.label :state, "completed", :value => "3", class: us.get_class(3), style: "background-color:#00FF33;",  :disabled => "disabled" %>
-<%= f.radio_button :state, 3, :checked => us.completed?, class: "radiobutton"%>
+<%= f.label :state, "completed", :value => "3", class: us.get_class(3), style: "background-color:#00CC00;"%>
+<%= f.radio_button :state, 3, :checked => us.completed?, class: "radiobutton", onclick: '$(this).trigger("submit.rails");' %>
 <% end %>
 </div>
 <%end%>

@@ -1,12 +1,18 @@
 <%= form_for us  do |f| %>
-<%= f.label 'Files:'%> <br/>
-       <% us.desc_files.each do |file|%>
-        <li>
-          <%= file.file.original_filename%>
+  <h2>
+    Files
+  </h2>
+  <ul>
+    <% us.desc_files.each do |file|%>
+      <li>
+         <%= file.file.original_filename%>
           <%= link_to "Download", file.file.url(:original, false) %>
-        </li>
-      <%end%>
-      <%= link_to 'Add File', "/user_stories/#{us.id.to_s}/add_file"%><br/>
-      <%end%>
+      </li>
+    <%end%>
+    <li style="list-style-type: none;">
+      <%= link_to 'Add File', "/user_stories/#{us.id.to_s}/add_file"%>
+    </li>
+  </ul>
+<%end%>
 
 

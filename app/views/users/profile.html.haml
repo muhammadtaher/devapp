@@ -1,24 +1,23 @@
 - if user_signed_in?
+  %br/
   .span6.pull-right{:style => "text-align:right"}
     .container{:style => "display: inline;"}
       = image_tag(@user.avatar.url(:thumb) , height: '100', width: '100', :class => "img-thumbnail")
   %p
-    %strong
-      %h3 
-        = @user.first_name
-        = @user.last_name
+    %h2
+      = @user.first_name
+      = @user.last_name
   %p
     %strong Email:
     = @user.email
   - if @user.admin
-    = link_to "Show All users", controller: "/users", action: "index"
-  %strong 
-    %h3 
-      Search projects
+    %h2
+      = link_to "Show All users", controller: "/users", action: "index"
+  %h2 Search projects
   = render 'search'
-  %strong All Projects:
-  %ul
+  %h2 Projects:
+  %ul{class:'projects'}
     = render 'projects'
-    %li
+    %li{style: "list-style-type: none;"}
       = link_to 'Add new project', '/projects/new'
 - else controller.redirect_to "/home/not_found"

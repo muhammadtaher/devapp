@@ -1,56 +1,186 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
-.open {
-	background-color:#FF6699;
-	position: relative;
-	float: left;
-	width: 270px;
-	margin-right: 10px;
-	h6{
+$open_color: #FF3366;
+$process_color: #FF9933;
+$verified_color: #3399FF;
+$completed_color: #00CC00;
+@font-face {
+font-family: 'FredokaOne-Regular';
+src: font-url('FredokaOne-Regular.eot');
+src: font-url('FredokaOne-Regular.eot?#iefix') format('embedded-opentype'),
+font-url('FredokaOne-Regular.woff') format('woff'),
+font-url('FredokaOne-Regular.ttf') format('truetype'),
+font-url('FredokaOne-Regular.svg#open_sansregular') format('svg');
 
-	}
+
+font-weight: normal;
+font-style: normal;
+
+}
+.cards{
+  position: absolute;
+  left: 460px;
+  top: 200px;
+}
+.open_card{
+  background-color: $open_color;
+  position:relative;
+  float:left;
+  width: 50px;
+  height:50px;
+  box-shadow: 0px 0px 5px #333333;
+
+}
+.process_card{
+  background-color:$process_color;
+position:relative;
+  float:left;
+  margin-left: -10px;
+   width: 50px;
+  height:50px;
+      box-shadow: -10px 0px 5px #333333;
+
+}
+.verified_card{
+  background-color:$verified_color;
+position:relative;
+  float:left;
+   width: 50px;
+  height:50px;
+      box-shadow: -10px 0px 5px #333333;
+
+}
+.completed_card{
+  background-color:$completed_color;
+position:relative;
+  float:left;
+   width: 150px;
+  height:50px;
+      box-shadow: -10px 0px 5px #333333;
+
+}
+.projects{
+font-size: 150%;
+
+}
+input[type=text], input[type=submit]{
+color: black;
+}
+
+.text{
+font-family:"FredokaOne-Regular" ;
+
+}
+h2{
+color: white;
+font-family:"FredokaOne-Regular" ;
+
+}
+.t{
+color: $open_color;
+}
+.r{
+color: $process_color;
+}
+.e{
+color: $verified_color;
+}
+.l{
+color: $completed_color;
+}
+.o{
+color: $completed_color;
+}
+
+body{
+color: white;
+background:
+linear-gradient(27deg, #151515 5px, transparent 5px) 0 5px,
+linear-gradient(207deg, #151515 5px, transparent 5px) 10px 0px,
+linear-gradient(27deg, #222 5px, transparent 5px) 0px 10px,
+linear-gradient(207deg, #222 5px, transparent 5px) 10px 5px,
+linear-gradient(90deg, #1b1b1b 10px, transparent 10px),
+linear-gradient(#1d1d1d 25%, #1a1a1a 25%, #1a1a1a 50%, transparent 50%, transparent 75%, #242424 75%, #242424);
+background-color: #131313;
+background-size: 20px 20px;}
+.shared{
+  color:black;
+}
+.actions{
+color: black;
+}
+div .jumbotron{
+color: gray;
+position: fixed;
+left: 400px;
+top: 80px;
+background-color: transparent;
+font-family:"FredokaOne-Regular" ;
+font-size: 300%;
+}
+.form-group label{
+  color: black;
+}
+.nav{
+ z-index: 3;
+border-radius: 5px;
+left: 0px;
+top: 0px;
+background-color : white;
+position: fixed;
+width: 100%;
+}
+.open {
+background-color:$open_color;
+position: relative;
+float: left;
+width: 25%;
+margin-right: 10px;
+h6{
+
+}
 }
 .in_process{
-	background-color:#CCCC33;
-	position: relative;
-	float: left;
-	width: 270px;
-	margin-right: 10px;
-	h6{
-		
-	}
+background-color:$process_color;
+position: relative;
+float: left;
+width: 25%;
+margin-right: 10px;
+h6{
+
+}
 }
 .to_be_verified
 {
-	background-color:#3399FF;
-	position: relative; 
-	float: left;
-	width: 270px;
-	margin-right: 10px;
-	h6{
-	 	   
-	}
+background-color:$verified_color;
+position: relative; 
+float: left;
+width: 25%;
+margin-right: 10px;
+h6{
+
+}
 }
 .completed{
-	background-color:#00FF33;
-	position: relative;
-	float: left;
-	width: 270px;
-	margin-right: 10px;
-	h6{
-	 	    
+background-color:$completed_color;
+position: relative;
+float: left;
+width: 20%;
+margin-right: 10px;
+h6{
 
-	}
+
+}
 
 }
 
 .radiobutton{
-	display:none;
+display:none;
 }
 .btn-group .active{
-	border-style: solid;
-    border-width: 3px;
+border-style: solid;
+border-width: 3px;
 }
 .done_task {
-    text-decoration:line-through;
+text-decoration:line-through;
 }
