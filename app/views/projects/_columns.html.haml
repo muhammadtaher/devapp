@@ -1,0 +1,42 @@
+%br/
+%div{:class=>"open"}
+  %strong
+    %center
+      %h4 Open
+  %ol
+    - @project.user_stories.each do |story|
+      - if story.state == 0 || story.state.nil?
+        %li
+          = story.name
+          = link_to 'show', "#", {:style=>"color:#FFFFFF;","data-toggle" => "modal", 'data-target' => "#"<<story.id.to_s}
+%div{:class=>"in_process"}
+  %strong
+    %center
+      %h4 In Process
+  %ol
+    - @project.user_stories.each do |story|
+      - if story.state == 1
+        %li
+          = story.name
+          = link_to 'show', "#", {:style=>"color:#FFFFFF;", "data-toggle" => "modal", 'data-target' => "#"<<story.id.to_s}
+%div{:class=>"to_be_verified"}
+  %strong
+    %center
+      %h4 To be Verified
+  %ol
+    - @project.user_stories.each do |story|
+      - if story.state == 2
+        %li
+          = story.name
+          = link_to 'show', "#", {:style=>"color:#FFFFFF;","data-toggle" => "modal", 'data-target' => "#"<<story.id.to_s}
+%div{:class=>"completed"}
+  %strong
+    %center
+      %h4 Completed
+  %ol
+    - @project.user_stories.each do |story|
+      - if story.state == 3
+        %li
+          = story.name
+          = link_to 'show', "#",  {:style=>"color:#FFFFFF;", "data-toggle" => "modal", 'data-target' => "#"<<story.id.to_s}
+%br/

@@ -10,6 +10,17 @@ class ProjectsController < ApplicationController
     redirect_to '/users/profile', :result => result, :search => true
   end
 
+  def modal_update_state
+    @project = Project.find(params[:id])
+    @user_story = UserStory.find(params[:user_story][:id])
+    @user_story.state = params[:user_story][:state]
+    @user_story.save
+    respond_to do |format|
+      format.html { redirect_to @user_story.project}
+      format.js 
+    end
+  end
+  
   def add_user_story
       @user_story = UserStory.new
       @user_story.project = Project.find(params[:id])

@@ -6,6 +6,8 @@ class UserStoriesController < ApplicationController
     @user_stories = UserStory.all
   end
 
+  
+
   def set_completed
   end
 

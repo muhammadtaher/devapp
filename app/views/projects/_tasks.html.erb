@@ -6,7 +6,7 @@
           <%= label_tag task.description,nil, class: task.get_class%>
           
         </li>
-<li style="list-style-type: none;"> <%= link_to 'Add task', "/user_stories/#{us.id.to_s}/add_task", {method: :post }%>
+        <%end%>
+<li style="list-style-type: none;"> <%= link_to 'Add task', "/user_stories/#{us.id.to_s}/add_task"%>
 </li>
 </ol>
-<%end%>

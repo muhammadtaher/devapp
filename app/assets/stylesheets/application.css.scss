@@ -59,11 +59,12 @@ position:relative;
       box-shadow: -10px 0px 5px #333333;
 
 }
+
 .projects{
 font-size: 150%;
 
 }
-input[type=text], input[type=submit]{
+input[type=text], input[type=submit], textarea{
 color: black;
 }
 
@@ -93,6 +94,7 @@ color: $completed_color;
 }
 
 body{
+margin-top: 50px;
 color: white;
 background:
 linear-gradient(27deg, #151515 5px, transparent 5px) 0 5px,

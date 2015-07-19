@@ -1,5 +1,4 @@
 <% if(can? :show, @user_story)%>
-<br/>
 <p>
   <h2><%= @user_story.name %></h2>
 
@@ -41,10 +40,12 @@
         <%= render "states", us: @user_story, disabled: false%> 
         
 </div>
+<div style="font-size: 150%">
 <div id="tasks">
 <%= render "tasks", us: @user_story, disabled: false%>
 </div>
 <%= render "files", us: @user_story %>
+</div>
 <%= render '/home/comments', :commentable => @user_story, path: add_user_stoires_comments_path %>
 <%= link_to 'Back', "/projects/#{@user_story.project_id}" %>
 <%else %>  

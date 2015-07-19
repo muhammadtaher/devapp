@@ -12,7 +12,8 @@ Rails.application.routes.draw do
     post '/user_stories/:id/save_task', to: "user_stories#save_task"
     post '/user_stories/:id/save_file', to: "user_stories#save_file"
     post '/user_stories/:id/add_comment', to: "user_stories#add_comment", as: :add_user_stoires_comments
-    post '/user_stories/:id/update_state', to: "user_stories#update_state", as: :update_state
+    post '/user_stories/:id/update_state/', to: "user_stories#update_state", as: :update_state
+    post '/projects/:id/modal_update_state/', to: "projects#modal_update_state", as: :modal_update_state
     post '/projects/add_user', to: "projects#add_user"
     post '/projects/:id/add_comment', to: "projects#add_comment", as: :add_project_comments
     post '/projects/add_file', to: "projects#add_file"

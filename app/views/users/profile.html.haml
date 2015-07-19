@@ -1,5 +1,4 @@
 - if user_signed_in?
-  %br/
   .span6.pull-right{:style => "text-align:right"}
     .container{:style => "display: inline;"}
       = image_tag(@user.avatar.url(:thumb) , height: '100', width: '100', :class => "img-thumbnail")
